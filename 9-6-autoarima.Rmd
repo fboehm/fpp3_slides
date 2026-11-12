@@ -29,9 +29,9 @@ Having identified the model order, we need to estimate the parameters $c$, $\phi
 
 * MLE is very similar to least squares estimation obtained by minimizing
 $$
-  \sum_{t-1}^T e_t^2
+  \sum_{t=1}^T e_t^2
 $$
-* The `ARIMA()` function allows CLS or MLE estimation.
+* The `ARIMA()` function allows conditional least squares (CLS) or MLE estimation.
 * Non-linear optimization must be used in either case.
 * Different software will give different estimates.
 

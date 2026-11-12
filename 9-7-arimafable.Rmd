@@ -70,6 +70,28 @@ global_economy |>
   gg_tsdisplay(difference(Exports), plot_type = "partial")
 ```
 
+## Reminder: reading $p$ and $q$ from the ACF and PACF
+\fontsize{12}{14}\sf
+
+Look at the ACF and PACF of the stationary (differenced) data:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+ & \textbf{ACF} & \textbf{PACF} \\
+\midrule
+AR($p$)    & tails off (exponential/sine wave) & \alert{cuts off} after lag $p$ \\
+MA($q$)    & \alert{cuts off} after lag $q$ & tails off (exponential/sine wave) \\
+ARMA($p,q$) & tails off & tails off \\
+\bottomrule
+\end{tabular}
+\end{center}
+\pause
+
+* ACF/PACF only suggest pure AR or pure MA models. If both tail off, use the AICc to choose $p$ and $q$.\pause
+* CAF exports: PACF has significant spikes up to lag 2 $\Rightarrow$ \alert{ARIMA(2,1,0)}.
+* ACF has significant spikes up to lag 3 $\Rightarrow$ \alert{ARIMA(0,1,3)}.
+
 ## Central African Republic exports
 
 ```{r caf_fit}
@@ -322,6 +344,36 @@ griddf |>
   ) +
   guides(alpha = FALSE)
 ```
+
+## Stepwise vs exhaustive search
+\fontsize{11}{13}\sf
+
+Both choose $d$ by KPSS tests first, then search over $p$, $q$ and $c$ differently.\pause
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{block}{\texttt{ARIMA(y, stepwise = TRUE)}}
+\begin{itemize}
+\item Start from 4 models; move to a neighbour while AICc improves.
+\item Fits a few dozen models: \alert{fast}.
+\item Can stop at a \alert{local} minimum.
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{block}{\texttt{ARIMA(y, stepwise = FALSE)}}
+\begin{itemize}
+\item Fits \emph{every} model with $p, q \le 5$, $p + q \le 6$.
+\item Finds the lowest AICc in that space.
+\item Much \alert{slower} (seasonal data, many series).
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\pause\vspace*{0.1cm}
+
+* One series: use `stepwise = FALSE`. Many series: stepwise for speed.
+* "Best" = lowest AICc among models tried. Still check residuals.
 
 ## Central African Republic exports
 \fontsize{10}{12}\sf

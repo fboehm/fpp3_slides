@@ -50,6 +50,40 @@ $$
 y_t = (1+\hat{\phi}_1)y_{t-1} -(\hat{\phi}_1-\hat{\phi}_2)y_{t-2} - (\hat{\phi}_2-\hat{\phi}_3)y_{t-3}-\hat{\phi}_3y_{t-4} + \varepsilon_t+\hat{\theta}_1\varepsilon_{t-1}
 $$
 
+## Think--pair--share: your turn
+\fontsize{14}{16}\sf
+
+\orange{ARIMA(1,1,2) forecasts: Step 1}
+\begin{block}{}
+\centerline{$(1-\hat{\phi}_1B)(1-B) y_t = (1+\hat{\theta}_1B+\hat{\theta}_2B^2)\varepsilon_{t}$}
+\end{block}
+
+Rewrite this model with $y_t$ alone on the left-hand side.
+
+* \alert{Think} (2 min): on your own, expand the brackets, apply the backshift operator, and solve for $y_t$.
+* \alert{Pair} (2 min): compare with a neighbour. Do your signs agree?
+* \alert{Share}: be ready to say which past values of $y$ and $\varepsilon$ appear on the right-hand side.
+
+## Think--pair--share: solution
+\fontsize{14}{14}\sf
+
+\begin{block}{}
+\centerline{$(1-\hat{\phi}_1B)(1-B) y_t = (1+\hat{\theta}_1B+\hat{\theta}_2B^2)\varepsilon_{t}$}
+\end{block}
+\pause\vspace*{-0.5cm}
+$$
+\left[1-\hat{\phi}_1B - B+\hat{\phi}_1B^2 \right] y_t = (1+\hat{\theta}_1B+\hat{\theta}_2B^2)\varepsilon_{t}
+$$\pause\vspace*{-0.4cm}
+$$
+\left[1-(1+\hat{\phi}_1)B +\hat{\phi}_1B^2\right] y_t = (1+\hat{\theta}_1B+\hat{\theta}_2B^2)\varepsilon_{t}
+$$\pause\vspace*{-0.2cm}
+$$
+y_t - (1+\hat{\phi}_1)y_{t-1} +\hat{\phi}_1y_{t-2} = \varepsilon_t+\hat{\theta}_1\varepsilon_{t-1}+\hat{\theta}_2\varepsilon_{t-2}
+$$\pause\vspace*{-0.4cm}
+$$
+y_t = (1+\hat{\phi}_1)y_{t-1} -\hat{\phi}_1y_{t-2} + \varepsilon_t+\hat{\theta}_1\varepsilon_{t-1}+\hat{\theta}_2\varepsilon_{t-2}
+$$
+
 ## Point forecasts (h=1)
 \fontsize{14}{14}\sf
 
