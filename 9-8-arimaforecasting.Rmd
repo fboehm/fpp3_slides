@@ -90,11 +90,11 @@ $$
 \begin{block}{}
 \centerline{$y_t = (1+\hat{\phi}_1)y_{t-1} -(\hat{\phi}_1-\hat{\phi}_2)y_{t-2} - (\hat{\phi}_2-\hat{\phi}_3)y_{t-3} -\hat{\phi}_3y_{t-4} + \varepsilon_t+\hat{\theta}_1\varepsilon_{t-1}$}
 \end{block}\pause
-\orange{ARIMA(3,1,1) forecasts: Step 2}\vspace*{-0.4cm}
+\orange{ARIMA(3,1,1) forecasts: Step 2} (replace $t$ by $T+h$; here $h=1$)\vspace*{-0.4cm}
 \begin{align*}
 y_{T+1} = (1+\hat{\phi}_1)y_{T} -(\hat{\phi}_1-\hat{\phi}_2)y_{T-1} - (\hat{\phi}_2-\hat{\phi}_3)y_{T-2}-\hat{\phi}_3y_{T-3} + \varepsilon_{T+1}+\hat{\theta}_1\varepsilon_{T}
 \end{align*}\pause
-\orange{ARIMA(3,1,1) forecasts: Step 3}\vspace*{-0.4cm}
+\orange{ARIMA(3,1,1) forecasts: Step 3} (future $y$'s $\to$ forecasts, future $\varepsilon$'s $\to 0$, past $\varepsilon$'s $\to$ residuals)\vspace*{-0.4cm}
 \begin{align*}
 \hat{y}_{T+1|T} = (1+\hat{\phi}_1)y_{T} -(\hat{\phi}_1-\hat{\phi}_2)y_{T-1} - (\hat{\phi}_2-\hat{\phi}_3)y_{T-2}{} -\hat{\phi}_3y_{T-3} + \hat{\theta}_1 e_{T}
 \end{align*}
@@ -112,6 +112,35 @@ y_{T+2} = (1+\hat{\phi}_1)y_{T+1} -(\hat{\phi}_1-\hat{\phi}_2)y_{T} - (\hat{\phi
 \orange{ARIMA(3,1,1) forecasts: Step 3}\vspace*{-0.4cm}
 \begin{align*}
 \hat{y}_{T+2|T} = (1+\hat{\phi}_1)\hat{y}_{T+1|T} -(\hat{\phi}_1-\hat{\phi}_2)y_{T} - (\hat{\phi}_2-\hat{\phi}_3)y_{T-1} -\hat{\phi}_3y_{T-2}.
+\end{align*}
+
+## Think--pair--share: your turn again
+\fontsize{14}{16}\sf
+
+\orange{ARIMA(1,1,2) forecasts: Steps 2 and 3} ($h=1$)
+\begin{block}{}
+\centerline{$y_t = (1+\hat{\phi}_1)y_{t-1} -\hat{\phi}_1y_{t-2} + \varepsilon_t+\hat{\theta}_1\varepsilon_{t-1}+\hat{\theta}_2\varepsilon_{t-2}$}
+\end{block}
+
+Find the one-step point forecast $\hat{y}_{T+1|T}$.
+
+* \alert{Think} (2 min): on your own, do Step 2 (replace $t$ by $T+1$), then Step 3 (future $y$'s $\to$ forecasts, future $\varepsilon$'s $\to 0$, past $\varepsilon$'s $\to$ residuals).
+* \alert{Pair} (2 min): compare with a neighbour. Which terms dropped out? Which became residuals?
+* \alert{Share}: be ready to say how many residuals appear in your forecast, and why.
+
+## Think--pair--share: solution
+\fontsize{14}{14}\sf
+
+\begin{block}{}
+\centerline{$y_t = (1+\hat{\phi}_1)y_{t-1} -\hat{\phi}_1y_{t-2} + \varepsilon_t+\hat{\theta}_1\varepsilon_{t-1}+\hat{\theta}_2\varepsilon_{t-2}$}
+\end{block}\pause
+\orange{ARIMA(1,1,2) forecasts: Step 2} (replace $t$ by $T+1$)\vspace*{-0.4cm}
+\begin{align*}
+y_{T+1} = (1+\hat{\phi}_1)y_{T} -\hat{\phi}_1y_{T-1} + \varepsilon_{T+1}+\hat{\theta}_1\varepsilon_{T}+\hat{\theta}_2\varepsilon_{T-1}
+\end{align*}\pause
+\orange{ARIMA(1,1,2) forecasts: Step 3} ($\varepsilon_{T+1}\to 0$; $\varepsilon_T, \varepsilon_{T-1} \to e_T, e_{T-1}$)\vspace*{-0.4cm}
+\begin{align*}
+\hat{y}_{T+1|T} = (1+\hat{\phi}_1)y_{T} -\hat{\phi}_1y_{T-1} + \hat{\theta}_1 e_{T}+\hat{\theta}_2 e_{T-1}
 \end{align*}
 
 ## Prediction intervals
