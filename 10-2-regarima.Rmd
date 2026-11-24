@@ -69,6 +69,30 @@ Write down the equations for the fitted model.
 
 ## US personal consumption and income
 
+```{r fiteqns, include=FALSE}
+cf <- tidy(fit) |> select(term, estimate) |> tibble::deframe()
+s2 <- glance(fit)$sigma2
+num <- function(x, d = 3) formatC(abs(x), format = "f", digits = d)
+sgn <- function(x) if (x < 0) "-" else "+"
+```
+
+Fitted model, with $y_t$ = change in consumption and $x_t$ = change in income:
+
+\begin{align*}
+  y_t &= `r num(cf["intercept"])` `r sgn(cf["Income"])` `r num(cf["Income"])` x_t + \eta_t, \\
+  \eta_t &= `r num(cf["ar1"])` \eta_{t-1} + \varepsilon_t
+     `r sgn(cf["ma1"])` `r num(cf["ma1"])` \varepsilon_{t-1}
+     `r sgn(cf["ma2"])` `r num(cf["ma2"])` \varepsilon_{t-2}, \\
+  \varepsilon_t &\sim \text{NID}(0, `r num(s2)`).
+\end{align*}
+
+\pause
+
+  * Regression part: intercept and slope on $x_t$.
+  * Error part: ARIMA(1,0,2) for $\eta_t$, with white-noise innovations $\varepsilon_t$.
+
+## US personal consumption and income
+
 ```{r , echo=TRUE, fig.height=3}
 residuals(fit, type = "regression") |>
   gg_tsdisplay(.resid, plot_type = "partial") +
