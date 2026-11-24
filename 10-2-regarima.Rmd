@@ -88,5 +88,5 @@ residuals(fit, type = "innovation") |>
 
 ```{r , echo=TRUE, fig.height=3.7}
 augment(fit) |>
-  features(.innov, ljung_box, dof = 3, lag = 12)
+  features(.innov, ljung_box, dof = 3, lag = 8)
 ```
